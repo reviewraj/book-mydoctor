@@ -1,147 +1,85 @@
-# 📌 Customer Management System
+# BookMyDoctor 🏥
 
-![Java](https://img.shields.io/badge/Java-23-blue) ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.1-green) ![Hibernate JPA](https://img.shields.io/badge/Hibernate%20JPA-6.6.7-yellow)
+BookMyDoctor is a web-based appointment booking system that allows users to schedule appointments with doctors efficiently. Built using **Java, Spring Boot, Hibernate, and MySQL**, this application provides a seamless experience for both patients and doctors.
 
-## 🚀 Overview
-The **Customer Management System** is a full-stack web application that allows users to manage customers efficiently. Users can:
-
-✅ Register and log in to the system  
-✅ Add, edit, and delete customer records  
-✅ Upload and retrieve documents securely  
-✅ Ensure content safety with filtering for inappropriate content  
-✅ Search and view documentation in a structured format  
-
-This project is built using **Java (JSP, Hibernate JPA, Spring Boot)** for the backend and follows MVC architecture.
-
----
+## 🚀 Features
+- **User Registration & Authentication** 🛡️
+- **Doctor Management** 👨‍⚕️
+- **Appointment Booking & Cancellation** 📅
+- **Email Notifications** 📧
+- **Role-based Access Control** 🔑
+- **RESTful API** 🔗
+- **Admin Dashboard** 📊
 
 ## 🛠️ Tech Stack
-### **Backend:**
-- Java 23
-- Spring Boot
-- Hibernate JPA
-- MySQL Database
+- **Backend:** Java 23, Spring Boot, Hibernate JPA
+- **Database:** MySQL
+- **Frontend:** (To be added)
+- **Authentication:** Spring Security, JWT
+- **Logging & Monitoring:** Logback, Prometheus, Grafana
 
-### **Frontend:**
-- JSP (Java Server Pages)
-- HTML & CSS
-- Bootstrap
-
-### **Other Tools:**
-- Lombok
-- ModelMapper
-- File Upload Handling
-
----
-
-## 📌 Features
-### ✅ User Authentication & Authorization
-- Register/Login using email & password
-- Role-based access for security (Admin/User)
-
-### ✅ Customer Management
-- Add, edit, and delete customer records
-- List customers with pagination & search
-
-### ✅ Document Management
-- Upload customer-related documents
-- List and retrieve uploaded files
-- Automatic content filtering for vulgar/18+ content
-
-### ✅ Search Functionality
-- View uploaded documentation
-- Logged-in users can add new documentation
-
----
-
-## 🏗️ Project Structure
+## 📂 Project Structure
 ```
-📂 CustomerManagementSystem
- ┣ 📂 src/main/java/com/example/customermanagement
- ┃ ┣ 📂 controller
- ┃ ┃ ┗ CustomerController.java
- ┃ ┣ 📂 model
- ┃ ┃ ┗ Customer.java
- ┃ ┣ 📂 repository
- ┃ ┃ ┗ CustomerRepository.java
- ┃ ┣ 📂 service
- ┃ ┃ ┗ CustomerService.java
- ┣ 📂 src/main/webapp
- ┃ ┣ 📂 WEB-INF
- ┃ ┃ ┗ views
- ┃ ┃ ┃ ┣ index.jsp
- ┃ ┃ ┃ ┣ customer-list.jsp
- ┃ ┃ ┃ ┗ upload.jsp
- ┣ 📄 pom.xml
- ┣ 📄 application.properties
- ┣ 📄 README.md
+bookmydoctor/
+│── src/main/java/com/bookmydoctor
+│   ├── controller/    # REST Controllers
+│   ├── entity/        # JPA Entities
+│   ├── repository/    # Spring Data JPA Repositories
+│   ├── service/       # Business Logic Services
+│   ├── dto/           # Data Transfer Objects
+│   ├── exception/     # Custom Exception Handling
+│── src/main/resources
+│   ├── application.yml # Configuration
+│── pom.xml            # Maven Dependencies
 ```
-
----
 
 ## 🏗️ Setup & Installation
-### **1️⃣ Clone the Repository**
-```sh
-git clone https://github.com/reviewraj/customer-management.git
-cd customer-management
-```
 
-### **2️⃣ Configure Database**
-Modify `src/main/resources/application.properties`:
-```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/customers_db
-spring.datasource.username=root
-spring.datasource.password=yourpassword
-spring.jpa.hibernate.ddl-auto=update
-```
+### Prerequisites
+- Java 23
+- MySQL
+- Maven
 
-### **3️⃣ Build & Run the Project**
-```sh
-mvn clean install
-mvn spring-boot:run
-```
-The application will start on `http://localhost:8080` 🚀
+### Steps to Run Locally
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/reviewraj/bookmydoctor.git
+   cd bookmydoctor
+   ```
+2. Configure the database in `application.yml`:
+   ```yml
+   spring:
+     datasource:
+       url: jdbc:mysql://localhost:3306/bookmydoctor
+       username: root
+       password: yourpassword
+   ```
+3. Build and run the application:
+   ```sh
+   mvn clean install
+   mvn spring-boot:run
+   ```
+4. Access the API at `http://localhost:8080/bookmydoctor/api`.
 
----
+## 📌 API Endpoints
 
-## 📸 Screenshots
-| Login Page  | Customer List  |
-|------------|--------------|
-| ![Login](https://via.placeholder.com/400) | ![Dashboard](https://via.placeholder.com/400) |
+### User Management
+- `POST /api/user/register` - Register a new user
+- `POST /api/user/login` - Authenticate user
 
----
+### Doctor Management
+- `GET /api/doctors` - List all doctors
+- `GET /api/doctors/{id}` - Get doctor details
 
-## 📜 API Endpoints
-### 🔹 **Customer Management APIs**
-| Method | Endpoint                | Description          |
-|--------|-------------------------|----------------------|
-| GET    | `/customers`            | Get all customers   |
-| POST   | `/customers`            | Add a new customer  |
-| PUT    | `/customers/{id}`       | Update a customer   |
-| DELETE | `/customers/{id}`       | Delete a customer   |
+### Appointment Booking
+- `POST /api/appointment/book` - Book an appointment
+- `DELETE /api/appointment/cancel/{id}` - Cancel an appointment
 
-### 🔹 **Document Management APIs**
-| Method | Endpoint                    | Description                     |
-|--------|------------------------------|---------------------------------|
-| POST   | `/documents/upload`          | Upload a document              |
-| GET    | `/documents/{id}`            | Get document by ID             |
-| GET    | `/documents/search?query=xyz` | Search documents               |
+## 📢 Contributing
+We welcome contributions! Please fork the repo and submit a pull request.
 
----
+## 📜 License
+This project is licensed under the MIT License.
 
-## 🤝 Contributing
-Contributions are welcome! To contribute:
-1. Fork the repo
-2. Create a new branch (`git checkout -b feature-name`)
-3. Commit changes (`git commit -m 'Add new feature'`)
-4. Push to the branch (`git push origin feature-name`)
-5. Open a Pull Request 🎉
-
----
-
-## 📧 Contact
-- **Author:** [Nagaraju Golla](https://www.linkedin.com/in/nagaraju-golla-334793188/)
-- **GitHub:** [reviewraj](https://github.com/reviewraj/)
-- **Email:** nagaraju7876482@gmail.com
-
-🌟 *If you like this project, give it a star! ⭐*
+## 🤝 Contact
+For queries or collaborations, reach out to **[Nagaraju Golla](https://www.linkedin.com/in/nagaraju-golla-334793188/)** ✉️ nagaraju7876482@gmail.com
