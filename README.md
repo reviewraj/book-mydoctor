@@ -29,7 +29,7 @@ bookmydoctor/
 │   ├── dto/           # Data Transfer Objects
 │   ├── exception/     # Custom Exception Handling
 │── src/main/resources
-│   ├── application.yml # Configuration
+│   ├── application.properties # Configuration
 │── pom.xml            # Maven Dependencies
 ```
 
@@ -46,7 +46,7 @@ bookmydoctor/
    git clone https://github.com/reviewraj/bookmydoctor.git
    cd bookmydoctor
    ```
-2. Configure the database in `application.yml`:
+2. Configure the database in `application.properties`:
    ```yml
    spring:
      datasource:
@@ -59,7 +59,7 @@ bookmydoctor/
    mvn clean install
    mvn spring-boot:run
    ```
-4. Access the API at `http://localhost:8080/bookmydoctor/api`.
+4. Access the API at `localhost:8080/bookmydoctor/api/appointment/book`.
 
 ## 📌 API Endpoints
 
@@ -74,6 +74,7 @@ bookmydoctor/
 ### Appointment Booking
 - `POST /api/appointment/book` - Book an appointment
 - `DELETE /api/appointment/cancel/{id}` - Cancel an appointment
+ - `GET /api/appointment/cancel/{id}` - Cancel an appointment
 
 ## 📢 Contributing
 We welcome contributions! Please fork the repo and submit a pull request.
