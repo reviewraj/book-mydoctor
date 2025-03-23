@@ -1,6 +1,8 @@
 package com.bookmydoctor.controller;
 
+import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +15,7 @@ import com.bookmydoctor.response.ResponseDto;
 import com.bookmydoctor.service.AppointmentService;
 
 import jakarta.validation.Valid;
-
+@Aspect
 @RestController
 @RequestMapping("/bookmydoctor/api/appointment")
 public class AppointmentController {
@@ -21,19 +23,19 @@ public class AppointmentController {
 	private AppointmentService  appointmentService;
 	
 	@PostMapping("/book")
-	public ResponseDto bookAppointment(@RequestBody @Valid AppointmentRequestDto appointmentRequestDto ) {
-		return new ResponseDto(false,"Appointment has requested successfully",appointmentService.createAppointment(appointmentRequestDto));
+	public ResponseEntity<ResponseDto> bookAppointment(@RequestBody @Valid AppointmentRequestDto appointmentRequestDto ) {
+		return ResponseEntity.ok( new ResponseDto(false,"Appointment has requested successfully",appointmentService.createAppointment(appointmentRequestDto)));
 	}
 	@GetMapping("/getByUserId")
-	public ResponseDto getByUserId(@RequestParam Integer UserId ) {
-		return new ResponseDto(false,"Appointment has listed successfully",appointmentService.getAppointmentsById(UserId));
+	public ResponseEntity<ResponseDto> getByUserId(@RequestParam Integer UserId ) {
+		return ResponseEntity.ok( new ResponseDto(false,"Appointment has listed successfully",appointmentService.getAppointmentsById(UserId)));
 	}
 	@GetMapping("/getByDocterId")
-	public ResponseDto getByDocterId(@RequestParam Integer UserId ) {
-		return new ResponseDto(false,"Appointments has listed successfully",appointmentService.getAppointmentsByDocterId(UserId));
+	public ResponseEntity<ResponseDto> getByDocterId(@RequestParam Integer UserId ) {
+		return ResponseEntity.ok( new ResponseDto(false,"Appointments has listed successfully",appointmentService.getAppointmentsByDocterId(UserId)));
 	}
 	@GetMapping("/UpdateAppointment")
-	public ResponseDto updateAppointment(@RequestParam Integer applicationId ) {
-		return new ResponseDto(false,"Appointment has successfully updated",appointmentService.updateAppointment(applicationId));
+	public ResponseEntity<ResponseDto> updateAppointment(@RequestParam Integer applicationId ) {
+		return ResponseEntity.ok( new ResponseDto(false,"Appointment has successfully updated",appointmentService.updateAppointment(applicationId)));
 	}
 }

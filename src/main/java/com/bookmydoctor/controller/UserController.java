@@ -1,6 +1,7 @@
 package com.bookmydoctor.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,16 +20,16 @@ public class UserController {
 	@Autowired
 	private UserService  userService;
 	@PostMapping("/save")
-	public ResponseDto saveUser(@RequestBody UserRequestDto userRequestDto ) {
-		return new ResponseDto(false,"user created successfully",userService.save(userRequestDto));
+	public ResponseEntity<ResponseDto> saveUser(@RequestBody UserRequestDto userRequestDto ) {
+		return ResponseEntity.ok (new ResponseDto(false,"user created successfully",userService.save(userRequestDto)));
 	}
 	@PutMapping("/update")
-	public ResponseDto updateUser(@RequestBody UserRequestDto userRequestDto ) {
-		return new ResponseDto(false,"user updated successfully",userService.update(userRequestDto));
+	public ResponseEntity<ResponseDto> updateUser(@RequestBody UserRequestDto userRequestDto ) {
+		return ResponseEntity.ok ( new ResponseDto(false,"user updated successfully",userService.update(userRequestDto)));
 	}
 	@DeleteMapping("/delete")
-	public ResponseDto deleteUser(@RequestBody UserRequestDto userRequestDto ) {
-		return new ResponseDto(false,"user deleted successfully",userService.delete(userRequestDto));
+	public ResponseEntity<ResponseDto> deleteUser(@RequestBody UserRequestDto userRequestDto ) {
+		return ResponseEntity.ok ( new ResponseDto(false,"user deleted successfully",userService.delete(userRequestDto)));
 	}
 
 

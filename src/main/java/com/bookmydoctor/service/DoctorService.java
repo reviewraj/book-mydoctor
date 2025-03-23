@@ -14,7 +14,7 @@ public interface DoctorService {
 //	 DoctorResponseDto update(DoctorRequestDto doctorRequestDto);
 
 	 DoctorResponseDto delete(DoctorRequestDto doctorRequestDto);
-	 List<DoctorResponseDto> getAll();
+	 List<DoctorResponseDto> getAll(int page, int size, String sortBy, String sortDir);
 
 	List<DoctorResponseDto> searchDoctors(String doctorName, String speciaList, Double minRating);
 

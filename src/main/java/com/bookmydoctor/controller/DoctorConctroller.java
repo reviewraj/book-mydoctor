@@ -2,6 +2,7 @@ package com.bookmydoctor.controller;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,30 +29,34 @@ public class DoctorConctroller {
 	private DoctorService  doctorService;
 	
 	@PostMapping("/save")
-	public ResponseDto saveUser(@RequestBody @Valid DoctorRequestDto doctorRequestDto ) {
-		return new ResponseDto(false,"doctor data created successfully",doctorService.save(doctorRequestDto));
+	public ResponseEntity<ResponseDto> saveUser(@RequestBody @Valid DoctorRequestDto doctorRequestDto ) {
+		return ResponseEntity.ok(new ResponseDto(false,"doctor data created successfully",doctorService.save(doctorRequestDto)));
 	}
 	@DeleteMapping("/delete")
-	public ResponseDto deleteUser(@RequestBody DoctorRequestDto doctorRequestDto ) {
-		return new ResponseDto(false,"doctor data  deleted successfully",doctorService.delete(doctorRequestDto));
+	public ResponseEntity<ResponseDto> deleteUser(@RequestBody DoctorRequestDto doctorRequestDto ) {
+		return ResponseEntity.ok( new ResponseDto(false,"doctor data  deleted successfully",doctorService.delete(doctorRequestDto)));
 	}
 	@GetMapping("/getAll")
-	public ResponseDto getAllUsers( ) {
-		return new ResponseDto(false,"doctors listed successfully",doctorService.getAll());
+	public ResponseEntity<ResponseDto> getAllUsers(
+			@RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "doctorName") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir)  {
+		return ResponseEntity.ok( new ResponseDto(false,"doctors listed successfully",doctorService.getAll(page,size,sortBy,sortDir)));
 	}
 	@GetMapping("/search")
-    public ResponseDto searchDoctors(
+    public ResponseEntity<ResponseDto> searchDoctors(
             @RequestParam(required = false) String doctorName,
             @RequestParam(required = false) String speciaList,
             @RequestParam(required = false) Double minRating) {
             
-           return new ResponseDto(false,"please find the list below", doctorService.searchDoctors(doctorName, speciaList, minRating));
+           return ResponseEntity.ok(new ResponseDto(false,"please find the list below", doctorService.searchDoctors(doctorName, speciaList, minRating)));
             
         }
 	@GetMapping("/rating")
-    public ResponseDto searchDoctors(@RequestParam  Double rating,@RequestParam String doctorEmail) {
+    public ResponseEntity<ResponseDto> searchDoctors(@RequestParam  Double rating,@RequestParam String doctorEmail) {
             
-           return new ResponseDto(false,"please find the list below", doctorService.rateTheDoctor(rating,doctorEmail));
+           return ResponseEntity.ok (new ResponseDto(false,"please find the list below", doctorService.rateTheDoctor(rating,doctorEmail)));
             
         }
 

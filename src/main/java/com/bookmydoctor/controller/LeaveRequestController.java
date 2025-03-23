@@ -1,6 +1,7 @@
 package com.bookmydoctor.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,15 +16,16 @@ import com.bookmydoctor.service.LeaveService;
 @RequestMapping("/bookmydoctor/api/leave")
 public class LeaveRequestController {
 	@Autowired
-	private LeaveService leaveService; 
+	private LeaveService leaveService;
+
 	@PostMapping("/request")
-	public ResponseDto leaveRequest(@RequestBody LeaveRequestDto leaveRequestDto ) {
-		return new ResponseDto(false,"leave is request succesfully",leaveService.leaveRequest(leaveRequestDto));
+	public ResponseEntity<ResponseDto> leaveRequest(@RequestBody LeaveRequestDto leaveRequestDto) {
+		return ResponseEntity.ok (new ResponseDto(false, "leave is request succesfully", leaveService.leaveRequest(leaveRequestDto)));
 	}
+
 	@PostMapping("/approveLeave")
-	public ResponseDto leaveRequest(@RequestParam Integer leaveId ) {
-		return new ResponseDto(false,"leave is request succesfully",leaveService.approveRequest(leaveId));
+	public ResponseEntity<ResponseDto> leaveRequest(@RequestParam Integer leaveId) {
+		return ResponseEntity.ok ( new ResponseDto(false, "leave is request succesfully", leaveService.approveRequest(leaveId)));
 	}
-	
 
 }

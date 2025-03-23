@@ -1,4 +1,8 @@
+package com.bookmydoctor.entity;
 
+
+
+import java.util.Optional;
 
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;

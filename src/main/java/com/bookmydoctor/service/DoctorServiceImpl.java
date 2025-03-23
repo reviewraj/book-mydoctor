@@ -7,6 +7,10 @@ import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.bookmydoctor.entity.Doctor;
@@ -75,8 +79,10 @@ public class DoctorServiceImpl implements DoctorService {
 	}
 
 	@Override
-	public List<DoctorResponseDto> getAll() {
-		List<Doctor> doctorList = doctorRepository.findAll();
+	public List<DoctorResponseDto> getAll(int page, int size, String sortBy, String sortDir) {
+		Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(sortDir), sortBy));
+	    Page<Doctor> doctorPage = doctorRepository.findAll(pageable);
+		List<Doctor> doctorList = doctorPage.getContent();
 		LocalDate today = LocalDate.now();
 		if(doctorList.isEmpty()) throw new NoDoctorsAvailable("no doctors available Now ");
 		doctorList = doctorList.stream().filter(doctor->doctor.getStatus()==Status.ACTIVE&&doctor.getIsWorking()==IsWorking.TRUE&& !isDoctorOnLeave(doctor, today)).toList();
