@@ -62,4 +62,4 @@ jobs:
         run: |
           docker build -t ${{ env.IMAGE_NAME }}:latest -t ${{ env.IMAGE_NAME }}:${{ env.BUILD_TIMESTAMP }} .
           docker push ${{ env.IMAGE_NAME }}:latest
-          docker push ${{ env.IMAGE_NAME }}:${{ env.BUILD_TIMESTAMP }}
+          docker push ${{ env.IMAGE_NAME }}:${{ env.BUILD_TIMESTAMP }} 
