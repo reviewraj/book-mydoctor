@@ -12,6 +12,7 @@ on:
 env:
   REGISTRY: docker.io
   IMAGE_NAME: nagaraju7876482/bookmydoctor
+  BUILD_TIMESTAMP: ${{ github.run_id }}-${{ github.run_number }}
 
 jobs:
   build-and-push:
@@ -56,11 +57,9 @@ jobs:
           images: ${{ env.IMAGE_NAME }}
 
       - name: Build and Push Docker Image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+        env:
+          TIMESTAMP: $(date +%Y%m%d%H%M%S)
+        run: |
+          docker build -t ${{ env.IMAGE_NAME }}:latest -t ${{ env.IMAGE_NAME }}:$TIMESTAMP .
+          docker push ${{ env.IMAGE_NAME }}:latest
+          docker push ${{ env.IMAGE_NAME }}:$TIMESTAMP
