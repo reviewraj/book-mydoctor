@@ -12,7 +12,6 @@ on:
 env:
   REGISTRY: docker.io
   IMAGE_NAME: nagaraju7876482/bookmydoctor
-  BUILD_TIMESTAMP: ${{ github.run_id }}-${{ github.run_number }}
 
 jobs:
   build-and-push:
@@ -50,6 +49,9 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
+      - name: Generate Build Timestamp
+        run: echo "BUILD_TIMESTAMP=$(date +%Y%m%d%H%M%S)" >> $GITHUB_ENV
+
       - name: Extract Docker Metadata
         id: meta
         uses: docker/metadata-action@v5
@@ -57,9 +59,7 @@ jobs:
           images: ${{ env.IMAGE_NAME }}
 
       - name: Build and Push Docker Image
-        env:
-          TIMESTAMP: $(date +%Y%m%d%H%M%S)
         run: |
-          docker build -t ${{ env.IMAGE_NAME }}:latest -t ${{ env.IMAGE_NAME }}:$TIMESTAMP .
+          docker build -t ${{ env.IMAGE_NAME }}:latest -t ${{ env.IMAGE_NAME }}:${{ env.BUILD_TIMESTAMP }} .
           docker push ${{ env.IMAGE_NAME }}:latest
-          docker push ${{ env.IMAGE_NAME }}:$TIMESTAMP
+          docker push ${{ env.IMAGE_NAME }}:${{ env.BUILD_TIMESTAMP }}
